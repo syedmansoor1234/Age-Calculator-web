@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            background: linear-gradient(100deg, #9c2bb3, #e1706d, #7a00ff);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .head {
+            color: #FFFF00;
+        }
+        
+        h1 {
+            padding: 15px;
+            margin: 10px;
+            text-align: center;
+            font-size: 30px;
+            font-style: italic;
+        }
+        
+        .para {
+            text-align: center;
+            font-size: 30px;
+            font-style: italic;
+            font-weight: bold;
+        }
+        
+        section {
+            box-shadow: #7a00ff;
+        }
+        
+        .container {
+            position: relative;
+            top: 200px;
+            left: 580px;
+            size: 2000px;
+            border: 3px solid rgba(17, 206, 149, 0.664);
+            width: 300px;
+            height: 70px;
+            border-radius: 15px;
+        }
+        
+        button {
+            background-color: blue;
+            color: white;
+            width: 80px;
+            height: 20px;
+            border-radius: 10px;
+            border: 2px solid black;
+        }
+        
+        input {
+            width: 150px;
+            height: 20px;
+            margin: 20px;
+            border: 2px solid black;
+        }
+        
+        #result {
+            margin: 20px;
+            font-size: 20px;
+            font-weight: bolder;
+        }
+        
+        footer {
+            position: sticky;
+            top: 100%;
+            width: 100%;
+            background-color: black;
+            color: white;
+            height: 60px;
+        }
+        
+        .foot {
+            text-align: center;
+            margin: 15px;
+            font-size: 20px;
+            font-style: italic;
+        }
+        
+        @media(max-width:768px) {
+            * {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                background: linear-gradient(100deg, #9c2bb3, #e1706d, #7a00ff);
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                min-height: 120vh;
+                display: flex;
+                flex-direction: column;
+            }
+            h1 {
+                position: relative;
+                left: 50px;
+                margin: 20px;
+                padding: 10px;
+                font-size: 50px;
+            }
+            .para {
+                position: relative;
+                left: 50px;
+                font-size: 50px;
+            }
+            .container {
+                position: relative;
+                left: 70px;
+            }
+            footer {
+                position: sticky;
+                width: 120%;
+                top: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <h1>AGE CALCULATOR</h1>
+        <p class="para">By</p> <br>
+        <p class="para">SYED MANSOOR</p>
+    </div>
+    <section>
+        <div class="container">
+            <input type="date" id="date">
+            <button onclick="CalculateAge()">Calculate</button>
+            <p id="result"></p>
+        </div>
+    </section>
+    <footer>
+        <p class="foot">Copyright &copy Syed Mansoor</p>
+    </footer>
+
+    <script>
+        let userInput = document.getElementById("date")
+        userInput.max = new Date().toISOString().split("T")[0];
+
+        let result = document.getElementById("result");
+
+        function CalculateAge() {
+            let birthDate = new Date(userInput.value);
+            let d1 = birthDate.getDate();
+            let m1 = birthDate.getMonth() + 1;
+            let y1 = birthDate.getFullYear();
+
+            let today = new Date();
+            let d2 = today.getDate();
+            let m2 = today.getMonth() + 1;
+            let y2 = today.getFullYear();
+
+            let d3, m3, y3;
+            y3 = y2 - y1;
+
+            if (m2 >= m1) {
+                m3 = m2 - m1;
+            } else {
+                y3--;
+                m3 = 12 + m2 - m1;
+            }
+
+            if (d2 >= d1) {
+                d3 = d2 - d1;
+            } else {
+                m3--;
+                d3 = getDaysInMonths(y1, m1) + d2 - d1;
+            }
+            if (m3 < 0) {
+                m3 = 11;
+                y3--;
+            }
+            result.innerHTML = `you are ${y3} years,${m3} months and ${d3} days old`;
+        }
+
+        function getDaysInMonths(year, month) {
+            return new Date(year, month, 0).getDate();
+
+        }
+    </script>
+</body>
+
+</html>
